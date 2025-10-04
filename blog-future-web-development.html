@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Future of Web Development - Ravi Chandera</title>
+    <title>F1 Score, How and why - Ravi Chandera</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Comfortaa:wght@300;400;500;600;700&family=Fredoka:wght@300;400;500;600&display=swap');
         
@@ -87,6 +87,7 @@
             border-radius: 5px;
         }
         
+        
         .blog-content {
             font-size: 1.1rem;
             line-height: 1.8;
@@ -164,83 +165,228 @@
 <body>
     <div class="container">
         <div class="back-link">
-            <a href="index.html">← Back to Resume</a>
+            <a href="index.html">← Back to Main</a>
         </div>
         
-        <h1>The Future of Web Development</h1>
+        <h1>F1 Score, How and why</h1>
         
         <div class="blog-meta">
-            Published: December 2023 | By Ravi Chandera | Reading time: 8 min
+            Published: August 2024 | By Ravi Chandera | Reading time: 8 min
         </div>
         
         <div class="blog-content">
-            <p>The landscape of web development is evolving at an unprecedented pace, driven by technological breakthroughs, changing user expectations, and the integration of artificial intelligence into every aspect of digital experiences. As we look toward the future, several key trends are reshaping how we build, deploy, and interact with web applications.</p>
+            <h2>Precision and Recall</h2>
+            <p>Suppose we are using an NLP model to predict the next word in the sentence.</p>
             
-            <h2>AI Integration and Intelligent Development</h2>
-            <p>Artificial Intelligence is no longer just a buzzword—it's becoming the backbone of modern web development. From automated code generation to intelligent debugging, AI tools are revolutionizing how developers work:</p>
+            <p><strong>Model prediction:</strong> Ravi is a girl</p>
+            <p><strong>Actual sentence:</strong> Ravi is a good boy</p>
+            
+            <p><strong>Precision</strong> = How many correct words are present out of all the predicted words. Here Ravi, is, a are present in the actual sentence so they are correct but girl is not present so it is incorrect. But our model has predicted all the four words and we take model's prediction as positive, so first three words becomes true positive and the girl becomes false positive.</p>
+            
+            <p>Precision is how many correct prediction are there among all the positive predictions.</p>
+            
+            <p><strong>Precision = 3/4</strong></p>
+            
+            <p><strong>Recall</strong> = How many actual words model was able to predict. Here we predicted three words, Ravi, is, a and model missed good and boy. So predicted words are true positive and we missed two actual positive words so they becomes false negative (they should be predicted by model).</p>
+            
+            <p>Recall = corrected predicted words out of all the actual correct words.</p>
+            
+            <p><strong>Recall = 3/5</strong></p>
+            
+            <h2>Another Example</h2>
+            <p>We built a model for spam email detection. The positive response is that email is spam and negative response of the model is that email is not-spam.</p>
+            
+            <p>We have 100 emails and they are in particular index, 1 to 100.</p>
+            
+            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                <tr style="background-color: #f5f5f5;">
+                    <th style="border: 1px solid #ddd; padding: 8px;">Model</th>
+                    <th style="border: 1px solid #ddd; padding: 8px;">1-50 → spam</th>
+                    <th style="border: 1px solid #ddd; padding: 8px;">50-70 → spam</th>
+                    <th style="border: 1px solid #ddd; padding: 8px;">70-90 not spam</th>
+                    <th style="border: 1px solid #ddd; padding: 8px;">90-100 not spam</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;"><strong>Actual</strong></td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">1-50 → spam</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">50-70 → not spam</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">70-90 not spam</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">90-100 spam</td>
+                </tr>
+            </table>
             
             <ul>
-                <li><strong>Code Generation:</strong> AI-powered tools like GitHub Copilot and ChatGPT are helping developers write code faster and more efficiently</li>
-                <li><strong>Automated Testing:</strong> AI can now generate comprehensive test suites and identify potential bugs before they reach production</li>
-                <li><strong>Performance Optimization:</strong> Machine learning algorithms can analyze user behavior patterns to optimize website performance in real-time</li>
-                <li><strong>Personalized User Experiences:</strong> AI enables dynamic content adaptation based on individual user preferences and behavior</li>
+                <li><strong>TP = 50</strong> (1-50) = 50</li>
+                <li><strong>FP = 20</strong> (50-70) = 20</li>
+                <li><strong>TN = 20</strong> (70-90)</li>
+                <li><strong>FN = 10</strong> (90-100)</li>
             </ul>
             
-            <h2>Progressive Web Applications (PWAs) and Mobile-First Design</h2>
-            <p>The distinction between native apps and web applications continues to blur as Progressive Web Applications gain momentum. PWAs offer the best of both worlds—the accessibility of web technologies with the performance and user experience of native applications.</p>
+            <p>Predicted total positives = 50(TP) + 20(FP) = 70</p>
+            <p>Out of which 50 are correct, <strong>Precision = 50/70</strong></p>
+            
+            <p>Actual positive = 50(TP) + 10(FN) = 60</p>
+            <p>Out of which we only predicted 50, <strong>Recall = 50/60</strong></p>
+            
+            <ul>
+                <li><strong>Precision = 1</strong> means our all the prediction are right</li>
+                <li><strong>Recall = 1</strong> means, we are able to correctly predict each prediction in the dataset</li>
+            </ul>
+            
+            <h2>High Precision Model</h2>
+            <p>Here we are doing spam detection of the email, let's understand by an example. I am unemployed and I got a job offer, but our model has classified that email as a spam. So this is case of FP.</p>
+            
+            <p>Now I miss the job and when I see that I missed due to my model, I curse that email service.</p>
+            
+            <p>The good thing about email service provider is to reduce the false positives, they can compromise on sending some spam email as not spam (FN) but FP are more important for their service, so they try to use model with higher precision.</p>
+            
+            <h2>High Recall Model</h2>
+            <p>Suppose you are a doctor and you have a medicine of the dangerous diseases. But there is one condition, if we give this medicine to the person and it has diseases then they are cured, but if not then they die. Now if the person has disease then after some time their hair starts becoming white.</p>
+            
+            <p>Here, FN are more important because, person is dying if we give without disease. And to identify the disease we have one clue that person's hair are white. So we prefer higher recall model here.</p>
+            
+            <h2>F1 Score Model</h2>
+            <p>F1 = 2/(p⁻¹ + r⁻¹)</p>
+            
+            <p>In some applications both precision and recall are important. So we can't focus on one thing only. And they are in trade-off, increase of one leads to decrement of other.</p>
+            
+            <p>I believe that it is good to check f1 score all the time. Focus on either precision or recall and also check F1 score. Then try to improve both.</p>
+            
+            <h3>Why do we take harmonic mean and not the arithmetic mean?</h3>
+            <p>The harmonic mean is especially sensitive to extreme values. This means that if either precision or recall is low, the F1 score will be pulled down more significantly than if the arithmetic mean were used, providing a more accurate reflection of the model's overall performance.</p>
+            
+            <h2>Why do we need F1 score?</h2>
+            <p>For the balanced dataset, Accuracy works fine.</p>
+            
+            <p>For imbalanced dataset, accuracy is misleading.</p>
+            
+            <h3>For example:</h3>
+            <p>In our dataset, we have 100 emails and only 2 are not-spams and other are spams. We build a model and our model is able to predict all the spam emails but not able to predict the not spam, here accuracy becomes 98/100 = 98%.</p>
+            
+            <p>But here we don't have balanced dataset that is why we are getting higher accuracy, in production, model will fail to identify emails.</p>
+            
+            <p>One solution is that we collect more numbers of not spam emails and make a dataset where 50% are spam and others are not spam. Or we can use F1 score.</p>
+            
+            <p>Even though, value of the F1 score will be high but it will be not like 98%, so we can get idea that there is something wrong.</p>
+            
+            <p>If dataset is balanced then there is no use of F1 score.</p>
             
             <div class="highlight-box">
-                "The future belongs to applications that work seamlessly across all devices, providing consistent experiences whether users are on desktop, mobile, or emerging platforms like AR/VR interfaces."
+                <strong>Note:</strong> p, r and F1 score are order unaware metrics, so they don't work if the order of prediction matters like in information retrieval, keyword extraction and item recommendation.
             </div>
             
-            <h2>WebAssembly and Performance Revolution</h2>
-            <p>WebAssembly (WASM) is opening new possibilities for web performance, allowing developers to run high-performance code written in languages like C++, Rust, and Go directly in the browser. This technology is particularly transformative for:</p>
-            
+            <h2>Binary Classification Example</h2>
+            <p>Let's consider a binary classification problem with a highly imbalanced dataset:</p>
             <ul>
-                <li>Real-time graphics and gaming applications</li>
-                <li>Scientific computing and data visualization</li>
-                <li>Video and audio processing</li>
-                <li>Cryptocurrency and blockchain applications</li>
+                <li>Class 0 (majority class): 900 instances</li>
+                <li>Class 1 (minority class): 100 instances</li>
             </ul>
             
-            <h2>Edge Computing and Distributed Architecture</h2>
-            <p>The traditional client-server model is giving way to edge computing, where processing happens closer to the user. This shift brings several advantages:</p>
-            
-            <ol>
-                <li><strong>Reduced Latency:</strong> Content and processing happen at edge locations, dramatically reducing response times</li>
-                <li><strong>Improved Reliability:</strong> Distributed systems are more resilient to failures</li>
-                <li><strong>Better Security:</strong> Data processing at the edge reduces the attack surface</li>
-                <li><strong>Cost Efficiency:</strong> Optimized resource utilization across distributed networks</li>
-            </ol>
-            
-            <h2>Web3 and Decentralized Applications</h2>
-            <p>While still in its early stages, Web3 technology is beginning to influence web development practices. Decentralized applications (dApps) are introducing new paradigms for:</p>
-            
+            <h3>In binary classification:</h3>
             <ul>
-                <li>User authentication and identity management</li>
-                <li>Data ownership and privacy</li>
-                <li>Monetization models through cryptocurrency</li>
-                <li>Community-driven governance and development</li>
+                <li><strong>Positive class</strong> = the class we're trying to detect (usually the minority class)</li>
+                <li><strong>Negative class</strong> = the other class</li>
             </ul>
             
-            <h2>Accessibility and Inclusive Design</h2>
-            <p>The future of web development must prioritize accessibility from the ground up. As web technologies become more sophisticated, ensuring that digital experiences are inclusive for all users becomes increasingly important:</p>
-            
+            <h3>In our example:</h3>
             <ul>
-                <li>Voice-controlled interfaces and screen reader optimization</li>
-                <li>Adaptive layouts for users with different abilities</li>
-                <li>Multilingual support and cultural considerations</li>
-                <li>Low-bandwidth optimization for global accessibility</li>
+                <li>Class 1 (minority) = <strong>Positive class</strong></li>
+                <li>Class 0 (majority) = <strong>Negative class</strong></li>
             </ul>
             
-            <h2>Conclusion</h2>
-            <p>The future of web development is bright and full of possibilities. As developers, we must embrace continuous learning and adaptation to stay relevant in this rapidly evolving field. The integration of AI, the rise of edge computing, and the push toward more accessible and performant applications are not just trends—they represent fundamental shifts in how we think about and build digital experiences.</p>
+            <p>Suppose we have a classifier that predicts all instances as Class 0. In this case:</p>
+            <ul>
+                <li>True Positives (TP) = 0</li>
+                <li>False Positives (FP) = 0</li>
+                <li>True Negatives (TN) = 900</li>
+                <li>False Negatives (FN) = 100</li>
+            </ul>
             
-            <p>Success in this new era will require a combination of technical expertise, creative problem-solving, and a deep understanding of user needs. The developers who thrive will be those who can seamlessly blend traditional web technologies with cutting-edge innovations to create experiences that are both powerful and accessible.</p>
+            <p>Using these values, let's calculate accuracy and F1 score:</p>
+            <p><strong>Accuracy</strong> = (TP + TN) / (TP + FP + TN + FN) = (0 + 900) / (0 + 0 + 900 + 100) = 0.9</p>
+            
+            <p>Now, let's calculate precision, recall, and F1 score:</p>
+            <ul>
+                <li><strong>Precision</strong> = TP / (TP + FP) = 0 / (0 + 0) = undefined (division by zero)</li>
+                <li><strong>Recall</strong> = TP / (TP + FN) = 0 / (0 + 100) = 0</li>
+            </ul>
+            
+            <p>Since precision is undefined (division by zero) and recall is 0, the F1 score is also undefined in this case.</p>
+            
+            <p>Now, let's consider a slightly better classifier that predicts all instances as Class 0 except one correctly predicted instance of Class 1.</p>
+            <ul>
+                <li>TP = 1</li>
+                <li>FP = 0</li>
+                <li>TN = 899</li>
+                <li>FN = 99</li>
+            </ul>
+            
+            <p><strong>Accuracy</strong> = (TP + TN) / (TP + FP + TN + FN) = (1 + 899) / (1 + 0 + 899 + 99) ≈ 0.9</p>
+            <p><strong>Precision</strong> = TP / (TP + FP) = 1 / (1 + 0) = 1</p>
+            <p><strong>Recall</strong> = TP / (TP + FN) = 1 / (1 + 99) ≈ 0.01</p>
+            <p><strong>F1 Score</strong> = 2 × (Precision × Recall) / (Precision + Recall) = 2 × (1 × 0.01) / (1 + 0.01) ≈ 0.0196</p>
             
             <div class="highlight-box">
-                The future of web development isn't just about new technologies—it's about creating a more connected, accessible, and intelligent web that serves the diverse needs of users worldwide.
+                <strong>Note:</strong> Unbalanced dataset can be reason of lower F1 score (model is predicting which class matters, like here it is predicting zero class)
             </div>
+            
+            <h2>How to choose any metric?</h2>
+            <p>If we are working on an application where precision is more important then focus on only precision. Same way if recall is important then focus on recall. If we are not able to find out which is more important, f1 score.</p>
+            
+            <p>For example, we are using an ML model to turn the steering of automatic car. Now, positive output from model means take the turn, negative means don't take the turn. FN means we needed the turn but we didn't take, FP means we didn't need the turn but we took. Both the cases can lead to accident. So here precision and recall both are important so we go for F1 score.</p>
+            
+            <h2>Interpretation</h2>
+            <p>I cannot think of an intuitive meaning of the F measure, because it's just a combined metric. What's more intuitive than F-measure, of course, is precision and recall.</p>
+            
+            <p>But using two values, we often cannot determine if one algorithm is superior to another. For example, if one algorithm has higher precision but lower recall than other, how can you tell which algorithm is better?</p>
+            
+            <p>If you have a specific goal in your mind like 'Precision is the king. I don't care much about recall', then there's no problem. Higher precision is better. But if you don't have such a strong goal, you will want a combined metric. That's F-measure. By using it, you will compare some of precision and some of recall.</p>
+            
+            <p>The <strong>"F"</strong> in <strong>F-score</strong> or <strong>F-measure</strong> stands for <strong>"Function"</strong> or sometimes just a label (like a variable name) used to represent a <strong>single metric</strong> that combines <strong>Precision</strong> and <strong>Recall</strong>.</p>
+            
+            <p>It doesn't stand for a specific word like "Frequency" or "Factor". It originated from early information retrieval research where they wanted a function of precision and recall — so they called it <strong>F</strong> as in a scoring <strong>function</strong>. It's just a conventional name.</p>
+            
+            <h2>Micro F1 Score</h2>
+            <ul>
+                <li><strong>Calculates global metrics</strong> by aggregating <strong>all true positives, false positives, and false negatives</strong> across classes</li>
+                <li>Then computes precision, recall, and F1 <strong>once</strong></li>
+                <li><strong>Good when classes are imbalanced</strong> and you care more about overall performance than per-class performance</li>
+            </ul>
+            
+            <p><strong>Formula:</strong></p>
+            <p>F1_micro = 2 × (∑TP) / (2×∑TP + ∑FP + ∑FN)</p>
+            
+            <h2>Macro F1 Score</h2>
+            <ul>
+                <li><strong>Calculates F1 score for each class separately</strong>, then <strong>takes the unweighted average</strong></li>
+                <li><strong>All classes are treated equally</strong>, regardless of size</li>
+                <li><strong>Good when you want equal importance for all classes</strong>, even if some are rare</li>
+            </ul>
+            
+            <p><strong>Formula:</strong></p>
+            <p>F1_macro = (F1_class1 + F1_class2 + ... + F1_classN) / N</p>
+            
+            <h2>Summary</h2>
+            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                <tr style="background-color: #f5f5f5;">
+                    <th style="border: 1px solid #ddd; padding: 8px;">Score Type</th>
+                    <th style="border: 1px solid #ddd; padding: 8px;">Weights</th>
+                    <th style="border: 1px solid #ddd; padding: 8px;">Sensitive to Class Imbalance?</th>
+                    <th style="border: 1px solid #ddd; padding: 8px;">Use Case</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Micro F1</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Global</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Yes</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Overall system performance</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Macro F1</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Equal</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">No</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Fairness across classes</td>
+                </tr>
+            </table>
         </div>
     </div>
 </body>
