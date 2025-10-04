@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Scalable Applications - Ravi Chandera</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Comfortaa:wght@300;400;500;600;700&family=Fredoka:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #FCFBF8;
+            color: #000000;
+            font-family: 'Quicksand', sans-serif;
+            line-height: 1.6;
+            padding: 20px 40px;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        /* Blurry red grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(220, 53, 69, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(220, 53, 69, 0.15) 1px, transparent 1px);
+            background-size: 50px 50px;
+            filter: blur(3px);
+            opacity: 0.4;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background-color: rgba(252, 251, 248, 0.9);
+            padding: 40px 60px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(36, 72, 85, 0.1);
+        }
+        
+        .back-link {
+            margin-bottom: 30px;
+        }
+        
+        .back-link a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #244855;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link a:hover {
+            color: #000000;
+            border-bottom: 2px solid #1a3440;
+        }
+        
+        h1 {
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #000000;
+            border-bottom: 3px solid #244855;
+            padding-bottom: 15px;
+        }
+        
+        .blog-meta {
+            text-align: center;
+            margin-bottom: 40px;
+            font-style: italic;
+            color: #000000;
+            background-color: rgba(252, 251, 248, 0.7);
+            padding: 15px;
+            border-radius: 5px;
+        }
+        
+        .blog-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .blog-content h2 {
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 40px 0 20px 0;
+            color: #000000;
+            border-left: 4px solid #244855;
+            padding-left: 15px;
+        }
+        
+        .blog-content h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin: 30px 0 15px 0;
+            color: #000000;
+        }
+        
+        .blog-content p {
+            margin-bottom: 20px;
+        }
+        
+        .blog-content ul, .blog-content ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        
+        .blog-content li {
+            margin-bottom: 10px;
+        }
+        
+        .highlight-box {
+            background-color: rgba(252, 251, 248, 0.5);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #244855;
+            margin: 30px 0;
+            font-style: italic;
+        }
+        
+        .code-example {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 15px 20px;
+            }
+            
+            .container {
+                padding: 30px 40px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .blog-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px 15px;
+            }
+            
+            .container {
+                padding: 20px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-link">
+            <a href="index.html">← Back to Resume</a>
+        </div>
+        
+        <h1>Building Scalable Applications</h1>
+        
+        <div class="blog-meta">
+            Published: October 2023 | By Ravi Chandera | Reading time: 12 min
+        </div>
+        
+        <div class="blog-content">
+            <p>In today's digital landscape, the ability to build applications that can grow with your business is not just an advantage—it's a necessity. Scalability isn't just about handling more users; it's about creating systems that can adapt, evolve, and maintain performance under increasing load while remaining cost-effective and maintainable.</p>
+            
+            <h2>Understanding Scalability: The Foundation</h2>
+            <p>Scalability comes in two primary forms: vertical scaling (scaling up) and horizontal scaling (scaling out). While vertical scaling involves adding more power to existing machines, horizontal scaling involves adding more machines to your system. Modern applications typically require a combination of both approaches.</p>
+            
+            <div class="highlight-box">
+                "True scalability isn't just about handling more traffic—it's about building systems that can gracefully adapt to changing requirements, unexpected load spikes, and evolving business needs."
+            </div>
+            
+            <h2>Microservices Architecture: Breaking Down Monoliths</h2>
+            <p>One of the most effective strategies for building scalable applications is adopting a microservices architecture. This approach involves breaking down large, monolithic applications into smaller, independent services that can be developed, deployed, and scaled independently.</p>
+            
+            <h3>Benefits of Microservices:</h3>
+            <ul>
+                <li><strong>Independent Scaling:</strong> Each service can be scaled based on its specific needs</li>
+                <li><strong>Technology Diversity:</strong> Different services can use different technologies and frameworks</li>
+                <li><strong>Fault Isolation:</strong> Failures in one service don't bring down the entire application</li>
+                <li><strong>Team Autonomy:</strong> Different teams can work on different services independently</li>
+            </ul>
+            
+            <h3>Microservices Implementation Considerations:</h3>
+            <ul>
+                <li>Service communication patterns (REST, GraphQL, gRPC)</li>
+                <li>Data consistency and transaction management</li>
+                <li>Service discovery and load balancing</li>
+                <li>Monitoring and observability across services</li>
+            </ul>
+            
+            <h2>Database Design for Scale</h2>
+            <p>Database performance is often the bottleneck in scalable applications. Here are key strategies for database scalability:</p>
+            
+            <h3>Database Sharding</h3>
+            <p>Sharding involves splitting your database into smaller, more manageable pieces called shards. Each shard contains a subset of your data, allowing for parallel processing and improved performance.</p>
+            
+            <div class="code-example">
+                // Example: User data sharding by user ID
+                const shardNumber = userId % numberOfShards;
+                const database = getShardDatabase(shardNumber);
+            </div>
+            
+            <h3>Read Replicas and Caching</h3>
+            <p>Implementing read replicas allows you to distribute read operations across multiple database instances, while caching frequently accessed data reduces database load and improves response times.</p>
+            
+            <ul>
+                <li><strong>Redis/Memcached:</strong> For in-memory caching of frequently accessed data</li>
+                <li><strong>CDN Caching:</strong> For static content and API responses</li>
+                <li><strong>Application-Level Caching:</strong> For computed results and complex queries</li>
+            </ul>
+            
+            <h2>Load Balancing and Traffic Management</h2>
+            <p>Effective load balancing ensures that incoming requests are distributed evenly across your application servers, preventing any single server from becoming overwhelmed.</p>
+            
+            <h3>Load Balancing Strategies:</h3>
+            <ol>
+                <li><strong>Round Robin:</strong> Distributes requests evenly across servers</li>
+                <li><strong>Least Connections:</strong> Routes to the server with the fewest active connections</li>
+                <li><strong>Weighted Distribution:</strong> Assigns different weights to servers based on their capacity</li>
+                <li><strong>Geographic Distribution:</strong> Routes users to the nearest data center</li>
+            </ol>
+            
+            <h2>Containerization and Orchestration</h2>
+            <p>Docker containers and orchestration platforms like Kubernetes have revolutionized how we deploy and manage scalable applications.</p>
+            
+            <h3>Benefits of Containerization:</h3>
+            <ul>
+                <li><strong>Consistency:</strong> Applications run the same way across all environments</li>
+                <li><strong>Resource Efficiency:</strong> Better utilization of server resources</li>
+                <li><strong>Rapid Deployment:</strong> Quick scaling up and down based on demand</li>
+                <li><strong>Isolation:</strong> Applications are isolated from each other</li>
+            </ul>
+            
+            <h2>Monitoring and Observability</h2>
+            <p>You can't scale what you can't measure. Comprehensive monitoring is essential for understanding your application's performance and identifying bottlenecks.</p>
+            
+            <h3>Key Metrics to Monitor:</h3>
+            <ul>
+                <li><strong>Response Time:</strong> How quickly your application responds to requests</li>
+                <li><strong>Throughput:</strong> Number of requests processed per second</li>
+                <li><strong>Error Rates:</strong> Percentage of failed requests</li>
+                <li><strong>Resource Utilization:</strong> CPU, memory, and disk usage</li>
+                <li><strong>Database Performance:</strong> Query execution times and connection pools</li>
+            </ul>
+            
+            <h2>Auto-Scaling Strategies</h2>
+            <p>Modern cloud platforms offer auto-scaling capabilities that can automatically adjust your application's capacity based on demand.</p>
+            
+            <div class="highlight-box">
+                "The goal of auto-scaling is to maintain optimal performance while minimizing costs. This requires careful configuration of scaling triggers, cooldown periods, and resource limits."
+            </div>
+            
+            <h3>Auto-Scaling Considerations:</h3>
+            <ul>
+                <li>Setting appropriate scaling thresholds</li>
+                <li>Configuring scaling policies and cooldown periods</li>
+                <li>Implementing health checks and graceful shutdowns</li>
+                <li>Cost optimization through reserved instances and spot pricing</li>
+            </ul>
+            
+            <h2>Security in Scalable Applications</h2>
+            <p>As applications scale, security becomes increasingly complex. Distributed systems introduce new attack vectors and require comprehensive security strategies.</p>
+            
+            <h3>Security Best Practices:</h3>
+            <ul>
+                <li><strong>API Security:</strong> Implement rate limiting, authentication, and authorization</li>
+                <li><strong>Data Encryption:</strong> Encrypt data in transit and at rest</li>
+                <li><strong>Network Security:</strong> Use VPCs, security groups, and network segmentation</li>
+                <li><strong>Regular Audits:</strong> Conduct security assessments and penetration testing</li>
+            </ul>
+            
+            <h2>Performance Optimization Techniques</h2>
+            <p>Optimizing performance is crucial for scalable applications. Here are key techniques:</p>
+            
+            <h3>Frontend Optimization:</h3>
+            <ul>
+                <li>Code splitting and lazy loading</li>
+                <li>Image optimization and compression</li>
+                <li>CDN implementation for static assets</li>
+                <li>Progressive Web App (PWA) features</li>
+            </ul>
+            
+            <h3>Backend Optimization:</h3>
+            <ul>
+                <li>Database query optimization</li>
+                <li>Connection pooling</li>
+                <li>Asynchronous processing</li>
+                <li>API response compression</li>
+            </ul>
+            
+            <h2>Conclusion</h2>
+            <p>Building scalable applications is an ongoing process that requires careful planning, continuous monitoring, and iterative improvement. The key is to start with a solid foundation and gradually implement scalability features as your application grows.</p>
+            
+            <p>Remember that scalability isn't just about technology—it's about designing systems that can evolve with your business needs. By implementing these strategies and continuously monitoring your application's performance, you can build systems that not only handle current demands but are prepared for future growth.</p>
+            
+            <div class="highlight-box">
+                "The most scalable applications are those built with growth in mind from day one. Start simple, measure everything, and scale incrementally based on real-world usage patterns."
+            </div>
+        </div>
+    </div>
+</body>
+</html>
