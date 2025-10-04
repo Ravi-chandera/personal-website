@@ -87,6 +87,7 @@
             border-radius: 5px;
         }
         
+        
         .blog-content {
             font-size: 1.1rem;
             line-height: 1.8;
@@ -178,148 +179,135 @@
             <a href="index.html">← Back to Resume</a>
         </div>
         
-        <h1>Building Scalable Applications</h1>
+        <h1>Qwen 3: The Next Generation of AI Models</h1>
         
         <div class="blog-meta">
-            Published: October 2023 | By Ravi Chandera | Reading time: 12 min
+            Published: January 2025 | By Ravi Chandera | Reading time: 15 min
         </div>
         
         <div class="blog-content">
-            <p>In today's digital landscape, the ability to build applications that can grow with your business is not just an advantage—it's a necessity. Scalability isn't just about handling more users; it's about creating systems that can adapt, evolve, and maintain performance under increasing load while remaining cost-effective and maintainable.</p>
+            <h2>Introduction</h2>
+            <p>Model from Alibaba cloud with Apache 2.0 licence</p>
             
-            <h2>Understanding Scalability: The Foundation</h2>
-            <p>Scalability comes in two primary forms: vertical scaling (scaling up) and horizontal scaling (scaling out). While vertical scaling involves adding more power to existing machines, horizontal scaling involves adding more machines to your system. Modern applications typically require a combination of both approaches.</p>
+            <p>An innovation distinguishing Qwen 3 is its hybrid "Thinking" and "Non-Thinking" inference modes.</p>
             
-            <div class="highlight-box">
-                "True scalability isn't just about handling more traffic—it's about building systems that can gracefully adapt to changing requirements, unexpected load spikes, and evolving business needs."
-            </div>
+            <h3>Dense Models</h3>
+            <p>There are six dense variants within the Qwen 3 family, with parameter counts of 0.6 billion, 1.7 billion, 4 billion, 8 billion, 14 billion, and 32 billion. These models adhere to a traditional Transformer structure, where all parameters are actively engaged during the inference process. The smaller dense models (0.6B, 1.7B, 4B) are designed with a 32K token context window, while the larger dense models (8B, 14B, 32B) boast an extended 128K token capacity.</p>
             
-            <h2>Microservices Architecture: Breaking Down Monoliths</h2>
-            <p>One of the most effective strategies for building scalable applications is adopting a microservices architecture. This approach involves breaking down large, monolithic applications into smaller, independent services that can be developed, deployed, and scaled independently.</p>
+            <h3>Mixture-of-Experts (MoE) Models</h3>
+            <p>Qwen 3 introduces two powerful MoE variants: Qwen3-30B-A3B and Qwen3-235B-A22B. The Qwen3-30B-A3B model has a total of 30 billion parameters but activates only 3 billion parameters per token during inference. The flagship Qwen3-235B-A22B model, while having a total of 235 billion parameters, activates only 22 billion parameters per token. Both MoE models also support the extended 128K token context window.</p>
             
-            <h3>Benefits of Microservices:</h3>
+            <h2>Architecture</h2>
+            
+            <h3>1. Dense Model</h3>
+            <p>Key architectural features integrated into these dense models include Grouped-Query Attention (GQA), which optimizes inference speed and memory utilization by sharing Key/Value heads among multiple Query heads, effectively reducing redundancy.</p>
+            
+            <p>For smaller models up to 4 billion parameters, embedding tying is employed to enhance parameter efficiency.</p>
+            
+            <h3>2. Mixer of Experts</h3>
+            <p>Qwen3-30B-A3B and Qwen3-235B-A22B. The MoE architecture is a sophisticated design where, instead of a single dense Feed-Forward Network (FFN) block per layer, multiple "expert" FFNs are present. In Qwen 3's MoE models, there are 128 such experts, but for any given input token, a routing mechanism intelligently selects only a small subset—specifically 8 out of 128—to perform the necessary computation. This sparse activation mechanism provides substantial efficiency gains. The inference cost, measured in Floating Point Operations Per Second (FLOPs), is primarily determined by the number of activated parameters rather than the total parameter count. For instance, Qwen3-235B-A22B leverages a total of 235 billion parameters but only activates 22 billion during inference.</p>
+            
+            <h3>3. Technical Details of Architecture</h3>
             <ul>
-                <li><strong>Independent Scaling:</strong> Each service can be scaled based on its specific needs</li>
-                <li><strong>Technology Diversity:</strong> Different services can use different technologies and frameworks</li>
-                <li><strong>Fault Isolation:</strong> Failures in one service don't bring down the entire application</li>
-                <li><strong>Team Autonomy:</strong> Different teams can work on different services independently</li>
+                <li><strong>Grouped Query Attention (GQA):</strong> This mechanism is employed across all Qwen 3 models to optimize inference speed and memory usage. GQA achieves this by grouping similar queries, which effectively reduces redundancy and streamlines the attention computation process, particularly beneficial in real-time applications like chatbots where low latency is critical.</li>
+                <li><strong>Rotary Positional Embeddings (RoPE):</strong> RoPE is utilized for efficient attention scaling, especially crucial for handling the model's extended context lengths. Qwen 3 further incorporates YaRN (Yet Another Rope) for robust scaling over its impressive 128K token context windows, mitigating the quadratic memory costs typically associated with long contexts.</li>
+                <li><strong>Activation Functions:</strong> The models employ <strong>SwiGLU activation</strong>, a non-linear function known for its effectiveness in deep learning architectures.</li>
+                <li><strong>YARN (Yet Another RoPE eNhancement):</strong> Enables dynamic position remapping for extended context</li>
+                <li><strong>Dual Chunk Attention (DCA):</strong> Splits long documents into chunks while maintaining cross-chunk awareness</li>
             </ul>
             
-            <h3>Microservices Implementation Considerations:</h3>
-            <ul>
-                <li>Service communication patterns (REST, GraphQL, gRPC)</li>
-                <li>Data consistency and transaction management</li>
-                <li>Service discovery and load balancing</li>
-                <li>Monitoring and observability across services</li>
-            </ul>
+            <h2>Hybrid Thinking Mode</h2>
+            <p>A standout innovation in Qwen 3 is its hybrid reasoning system, which integrates two distinct inference modes—"Thinking" and "Non-Thinking"—into a single unified model. This allows users to seamlessly switch between these modes without the need to alternate between different models.</p>
             
-            <h2>Database Design for Scale</h2>
-            <p>Database performance is often the bottleneck in scalable applications. Here are key strategies for database scalability:</p>
+            <p>The <strong>Thinking Mode</strong> is specifically designed for complex, such as advanced mathematics, coding challenges, and logical deduction. In this mode, the model performs step-by-step reasoning, often generating intermediate `<think>` blocks that illustrate its "chain of thought". This verbose output is invaluable for debugging and understanding the model's decision-making process.</p>
             
-            <h3>Database Sharding</h3>
-            <p>Sharding involves splitting your database into smaller, more manageable pieces called shards. Each shard contains a subset of your data, allowing for parallel processing and improved performance.</p>
+            <p><strong>Non-Thinking Mode</strong> is optimized for rapid, general-purpose responses. It provides quick, direct answers without the visible intermediate reasoning steps, prioritizing speed and efficiency for simpler queries where latency is a primary concern.</p>
+            
+            <p>A key control mechanism associated with this hybrid system is the "thinking budget". Users can dynamically specify the cognitive effort or "thinking duration" the model should expend, up to 38,000 tokens. This granular control allows for precise adjustment of the model's behavior based on the specific needs of a task, thereby optimizing the trade-off between response quality and computational costs. The training pipeline for Qwen 3 includes a dedicated "thinking mode fusion" stage, designed to integrate these two distinct capabilities into a cohesive framework.</p>
             
             <div class="code-example">
-                // Example: User data sharding by user ID
-                const shardNumber = userId % numberOfShards;
-                const database = getShardDatabase(shardNumber);
+&gt; Who are you /no_think
+
+&lt;think&gt;
+
+&lt;/think&gt;
+
+I am Qwen, a large-scale language model developed by Alibaba Cloud. [...]
+
+&gt; How many 'r's are in 'strawberries'? /think
+
+&lt;think&gt;
+Okay, let's see. The user is asking how many times the letter 'r' appears in the word "strawberries". [...]
+&lt;/think&gt;
+
+The word strawberries contains 3 instances of the letter r. [...]
             </div>
             
-            <h3>Read Replicas and Caching</h3>
-            <p>Implementing read replicas allows you to distribute read operations across multiple database instances, while caching frequently accessed data reduces database load and improves response times.</p>
+            <p>For NON thinking mode, we purposely enclose &lt;think&gt; and &lt;/think&gt; with nothing for <strong>llama.cpp and Ollama.</strong></p>
             
-            <ul>
-                <li><strong>Redis/Memcached:</strong> For in-memory caching of frequently accessed data</li>
-                <li><strong>CDN Caching:</strong> For static content and API responses</li>
-                <li><strong>Application-Level Caching:</strong> For computed results and complex queries</li>
-            </ul>
+            <p><strong>For transformers and vLLM,</strong> we have parameters <code>enable_thinking=True</code>.</p>
             
-            <h2>Load Balancing and Traffic Management</h2>
-            <p>Effective load balancing ensures that incoming requests are distributed evenly across your application servers, preventing any single server from becoming overwhelmed.</p>
+            <h2>Pre Training</h2>
+            <p>Qwen 3 was pre-trained on an immense corpus of approximately <strong>36 trillion tokens</strong>. This represents nearly double the 18 trillion tokens used for its predecessor, Qwen 2.5, signifying a substantial increase in the foundational knowledge acquired by the model. The pre-training process was structured into a multi-stage pipeline to optimize learning across different capabilities:</p>
             
-            <h3>Load Balancing Strategies:</h3>
             <ol>
-                <li><strong>Round Robin:</strong> Distributes requests evenly across servers</li>
-                <li><strong>Least Connections:</strong> Routes to the server with the fewest active connections</li>
-                <li><strong>Weighted Distribution:</strong> Assigns different weights to servers based on their capacity</li>
-                <li><strong>Geographic Distribution:</strong> Routes users to the nearest data center</li>
+                <li><strong>Stage 1 (Basic Skills):</strong> This initial phase involved training on over 30 trillion tokens with a 4K context length. The primary objective of this stage was to establish fundamental language understanding and generation capabilities.</li>
+                <li><strong>Stage 2 (Knowledge Focus):</strong> In this subsequent stage, an additional 5 trillion tokens of knowledge-intensive data were incorporated. This data was specifically curated to enhance the model's factual understanding, with a particular emphasis on STEM (Science, Technology, Engineering, Mathematics), coding, and complex reasoning content.</li>
+                <li><strong>Stage 3 (Long-Context):</strong> The final pre-training stage focused on training with high-quality long-context data. This was critical for extending the model's ability to handle and understand information within very long input sequences, pushing its context handling capabilities to 32K and even 128K tokens.</li>
             </ol>
             
-            <h2>Containerization and Orchestration</h2>
-            <p>Docker containers and orchestration platforms like Kubernetes have revolutionized how we deploy and manage scalable applications.</p>
+            <p><strong>Synthetic data</strong> for mathematics, coding, textbooks, and question-answering pairs. This synthetic data was generated using previous-generation models, specifically Qwen2.5-Math and Qwen2.5-Coder. This approach represents an interesting "bootstrapping process," where the models are, in essence, contributing to the training of their successors.</p>
             
-            <h3>Benefits of Containerization:</h3>
+            <h2>Post Training</h2>
+            <p>This fine-tuning process was designed to align the models more closely with human preferences and optimize them for various downstream applications:</p>
+            
             <ul>
-                <li><strong>Consistency:</strong> Applications run the same way across all environments</li>
-                <li><strong>Resource Efficiency:</strong> Better utilization of server resources</li>
-                <li><strong>Rapid Deployment:</strong> Quick scaling up and down based on demand</li>
-                <li><strong>Isolation:</strong> Applications are isolated from each other</li>
+                <li><strong>Long Chain-of-Thought (CoT) Cold Start:</strong> This stage involved initial Supervised Fine-Tuning (SFT) specifically on long Chain-of-Thought examples across diverse domains such as mathematics, coding, and logical reasoning.</li>
+                <li><strong>Reasoning-based Reinforcement Learning (RL):</strong> This stage explicitly targeted the improvement of the model's reasoning abilities. It involved applying rule-based reward functions to optimize the depth of CoT, enhance logical flow, and improve answer correctness.</li>
+                <li><strong>Thinking Mode Fusion:</strong> In this crucial stage, the model was further fine-tuned on a blend of its own CoT outputs and standard instruction data. The objective was to seamlessly integrate the "non-thinking" fast-response pathway with the deeper "thinking" capabilities.</li>
+                <li><strong>General Reinforcement Learning (RL):</strong> The final stage involved general reinforcement learning across a broad set of diverse tasks. This comprehensive phase aimed to hone the model's instruction following, ensure format compliance, enhance its agentic potential, and improve overall safety alignment.</li>
             </ul>
             
-            <h2>Monitoring and Observability</h2>
-            <p>You can't scale what you can't measure. Comprehensive monitoring is essential for understanding your application's performance and identifying bottlenecks.</p>
+            <h2>Real World Applications</h2>
             
-            <h3>Key Metrics to Monitor:</h3>
+            <h3>Qwen 3 Embeddings</h3>
+            <p>Available in 0.6B, 4B, and 8B sizes achieves state-of-the-art performance in multilingual text embedding benchmarks (MTEB).</p>
+            
+            <p>The 8B model, as of June 5, 2025, ranked first with a score of 70.58. This series supports over 100 languages, including various programming languages, and enables sophisticated cross-language semantic matching, such as retrieving an English document based on a Chinese query.</p>
+            
+            <h3>Agentic Abilities and Coding Skills</h3>
+            <p>Qwen 3 is specifically optimized for <strong>"agent" (tool-using) scenarios</strong>. This includes enhanced support for function-calling and the integration of an internal Model Context Protocol (MCP) for seamless interaction with external tools.</p>
+            
+            <p>Qwen 3 is highly optimized for programming tasks and demonstrates exceptional performance in the realm of coding. It excels at generating complex code from natural language descriptions, debugging and refactoring existing codebases, and translating between various programming languages. Even smaller models within the Qwen 3 family have shown the ability to outperform previous generation larger models in coding benchmarks. For instance, the 32B-parameter version of Qwen 3 is reported to match the coding prowess of GPT-4o, demonstrating remarkable accuracy in code generation and interpretation. The flagship Qwen3-235B-A22B model narrowly outperforms OpenAI's o3-mini and Google's Gemini 2.5 Pro on Codeforces challenges and surpasses o3-mini on LiveCodeBench.</p>
+            
+            <h2>Fine Tuning for Specific Use Case</h2>
+            <p>Qwen3 is more of general model with lots of capabilities, since it is of smaller size compared to proprietary models, if we want to use get same performance like them, we need to fine tune it.</p>
+            
+            <h3>🦥 Fine-tuning Qwen3 with Unsloth</h3>
+            <p>Unsloth makes Qwen3 fine-tuning 2x faster, use 70% less VRAM and supports 8x longer context lengths. Qwen3 (14B) fits comfortably in a Google Colab 16GB VRAM Tesla T4 GPU.</p>
+            
+            <p>Because Qwen3 supports both reasoning and non-reasoning, you can fine-tune it with a non-reasoning dataset, but this may affect its reasoning ability. If you want to maintain its reasoning capabilities (optional), you can use a mix of direct answers and chain-of-thought examples. Use 75% reasoning and 25% non-reasoning in your dataset to make the model retain its reasoning capabilities.</p>
+            
+            <p>Our Conversational notebook uses a combo of 75% NVIDIA's open-math-reasoning dataset and 25% Maxime's FineTome dataset (non-reasoning). Here's free Unsloth Colab notebooks to fine-tune Qwen3:</p>
+            
             <ul>
-                <li><strong>Response Time:</strong> How quickly your application responds to requests</li>
-                <li><strong>Throughput:</strong> Number of requests processed per second</li>
-                <li><strong>Error Rates:</strong> Percentage of failed requests</li>
-                <li><strong>Resource Utilization:</strong> CPU, memory, and disk usage</li>
-                <li><strong>Database Performance:</strong> Query execution times and connection pools</li>
+                <li><a href="https://colab.research.google.com/github/unslothai/notebooks/blob/main/nb/Qwen3_(14B)-Reasoning-Conversational.ipynb">Qwen3 (14B) Reasoning + Conversational notebook</a> (recommended)</li>
+                <li><a href="https://colab.research.google.com/github/unslothai/notebooks/blob/main/nb/Qwen3_(4B)-GRPO.ipynb">Qwen3 (4B) - Advanced GRPO LoRA</a></li>
+                <li><a href="https://colab.research.google.com/github/unslothai/notebooks/blob/main/nb/Qwen3_(14B)-Alpaca.ipynb">Qwen3 (14B) Alpaca notebook</a> (for Base models)</li>
             </ul>
             
-            <h2>Auto-Scaling Strategies</h2>
-            <p>Modern cloud platforms offer auto-scaling capabilities that can automatically adjust your application's capacity based on demand.</p>
+            <h3>Qwen3 MOE Models Fine-tuning</h3>
+            <p>Fine-tuning support includes MOE models: 30B-A3B and 235B-A22B. Qwen3-30B-A3B works on just 17.5GB VRAM with Unsloth. On fine-tuning MoE's - it's probably not a good idea to fine-tune the router layer so we disabled it by default.</p>
+            
+            <p>The 30B-A3B fits in 17.5GB VRAM, but you may lack RAM or disk space since the full 16-bit model must be downloaded and converted to 4-bit on the fly for QLoRA fine-tuning. This is due to issues importing 4-bit BnB MOE models directly. This only affects MOE models.</p>
+            
+            <h3>GRPO with Qwen3</h3>
+            <p>We made a new advanced GRPO notebook for fine-tuning Qwen3. Learn to use our new proximity-based reward function (closer answers = rewarded) and Hugging Face's Open-R1 math dataset. Unsloth now also has better evaluations and uses the latest version of vLLM.</p>
+            
+            <p><a href="https://colab.research.google.com/github/unslothai/notebooks/blob/main/nb/Qwen3_(4B)-GRPO.ipynb">Qwen3 (4B) notebook - Advanced GRPO LoRA</a></p>
             
             <div class="highlight-box">
-                "The goal of auto-scaling is to maintain optimal performance while minimizing costs. This requires careful configuration of scaling triggers, cooldown periods, and resource limits."
-            </div>
-            
-            <h3>Auto-Scaling Considerations:</h3>
-            <ul>
-                <li>Setting appropriate scaling thresholds</li>
-                <li>Configuring scaling policies and cooldown periods</li>
-                <li>Implementing health checks and graceful shutdowns</li>
-                <li>Cost optimization through reserved instances and spot pricing</li>
-            </ul>
-            
-            <h2>Security in Scalable Applications</h2>
-            <p>As applications scale, security becomes increasingly complex. Distributed systems introduce new attack vectors and require comprehensive security strategies.</p>
-            
-            <h3>Security Best Practices:</h3>
-            <ul>
-                <li><strong>API Security:</strong> Implement rate limiting, authentication, and authorization</li>
-                <li><strong>Data Encryption:</strong> Encrypt data in transit and at rest</li>
-                <li><strong>Network Security:</strong> Use VPCs, security groups, and network segmentation</li>
-                <li><strong>Regular Audits:</strong> Conduct security assessments and penetration testing</li>
-            </ul>
-            
-            <h2>Performance Optimization Techniques</h2>
-            <p>Optimizing performance is crucial for scalable applications. Here are key techniques:</p>
-            
-            <h3>Frontend Optimization:</h3>
-            <ul>
-                <li>Code splitting and lazy loading</li>
-                <li>Image optimization and compression</li>
-                <li>CDN implementation for static assets</li>
-                <li>Progressive Web App (PWA) features</li>
-            </ul>
-            
-            <h3>Backend Optimization:</h3>
-            <ul>
-                <li>Database query optimization</li>
-                <li>Connection pooling</li>
-                <li>Asynchronous processing</li>
-                <li>API response compression</li>
-            </ul>
-            
-            <h2>Conclusion</h2>
-            <p>Building scalable applications is an ongoing process that requires careful planning, continuous monitoring, and iterative improvement. The key is to start with a solid foundation and gradually implement scalability features as your application grows.</p>
-            
-            <p>Remember that scalability isn't just about technology—it's about designing systems that can evolve with your business needs. By implementing these strategies and continuously monitoring your application's performance, you can build systems that not only handle current demands but are prepared for future growth.</p>
-            
-            <div class="highlight-box">
-                "The most scalable applications are those built with growth in mind from day one. Start simple, measure everything, and scale incrementally based on real-world usage patterns."
+                "Qwen 3 represents a significant leap forward in AI model architecture, combining efficiency, reasoning capabilities, and practical applicability in a way that makes advanced AI more accessible and customizable for real-world applications."
             </div>
         </div>
     </div>
